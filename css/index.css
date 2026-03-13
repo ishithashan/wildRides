@@ -30,7 +30,7 @@ body {
  */
 
 ::-moz-selection {
-    background: #b3d4fc;
+    background: #b3f2fc;
     text-shadow: none;
 }
 
@@ -194,7 +194,7 @@ input[type=text], input[type=password], input[type=email] {
     margin: 10px 0 30px;
     display: inline-block;
     border: none;
-    border-bottom: 2px solid white;
+    border-bottom: 2px solid rgb(0, 0, 0);
     box-sizing: border-box;
     background: transparent;
     outline: none;
@@ -202,7 +202,7 @@ input[type=text], input[type=password], input[type=email] {
     font-family: "fairplex-wide";
     font-size: 24px;
     opacity: 1;
-    color: white;
+    color: rgb(0, 0, 0);
     font-weight: 400;
 
     -webkit-transition: border-bottom 0.4s ease-in-out;
@@ -215,13 +215,13 @@ input[type=text]:focus, input[type=password]:focus {
 
 
 input[type=text]:valid, input[type=password]:valid {
-    border-bottom: 2px solid #f50856;
+    border-bottom: 2px solid #152928;
 } /* This is a quick fix to get an authorization / valid entry state without using JS */
 
 input[type=submit] {
     width: 200px;
-    background-color: white;
-    color: #f50856;
+    background-color: rgb(0, 0, 0);
+    color: #c2f7ff;
     padding: 14px 20px;
     margin: 8px auto 30px;
     border: none;
@@ -240,8 +240,8 @@ input[type=submit] {
 }
 
 input[type=submit]:hover {
-    background-color: #dddddd;
-    color: #bb0642;
+    background-color: #c2f7ff;
+    color: #000000;
 }
 
 
@@ -277,7 +277,7 @@ input[type=submit]:hover {
 /* Typography */
 
 h1{
-  color: white;
+  color: rgb(0, 0, 0);
   font-size: 48px;
   font-weight: 700;
   letter-spacing: 1px;
