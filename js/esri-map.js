@@ -30,7 +30,7 @@ WildRydes.map = WildRydes.map || {};
         });
 
         var pinSymbol = new TextSymbol({
-            color: '#006c7b',
+            color: '#07373d',
             text: '\ue61d',
             font: {
                 size: 20,
@@ -40,8 +40,8 @@ WildRydes.map = WildRydes.map || {};
 
         var unicornSymbol = new PictureMarkerSymbol({
             url: '/images/mini-van.png',
-            width: '25px',
-            height: '25px'
+            //width: '25px',
+            //height: '25px'
         });
 
         var pinGraphic;
