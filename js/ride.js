@@ -33,7 +33,7 @@ WildRydes.map = WildRydes.map || {};
             error: function ajaxError(jqXHR, textStatus, errorThrown) {
                 console.error('Error requesting ride: ', textStatus, ', Details: ', errorThrown);
                 console.error('Response: ', jqXHR.responseText);
-                alert('An error occured when requesting your unicorn:\n' + jqXHR.responseText);
+                alert('An error occured when requesting your car:\n' + jqXHR.responseText);
             }
         });
     }
@@ -44,9 +44,9 @@ WildRydes.map = WildRydes.map || {};
         console.log('Response received from API: ', result);
         unicorn = result.Unicorn;
         pronoun = unicorn.Gender === 'Male' ? 'his' : 'her';
-        displayUpdate(unicorn.Name + ', your ' + unicorn.Color + ' unicorn, is on ' + pronoun + ' way.');
+        displayUpdate(unicorn.Name + ', your ' + unicorn.Color + ' car, is on ' + pronoun + ' way.');
         animateArrival(function animateCallback() {
-            displayUpdate(unicorn.Name + ' has arrived. Giddy up!');
+            displayUpdate(unicorn.Name + ' has arrived. Hop up!');
             WildRydes.map.unsetLocation();
             $('#request').prop('disabled', 'disabled');
             $('#request').text('Set Pickup');
@@ -72,7 +72,7 @@ WildRydes.map = WildRydes.map || {};
 
     function handlePickupChanged() {
         var requestButton = $('#request');
-        requestButton.text('Request Unicorn');
+        requestButton.text('Request Car');
         requestButton.prop('disabled', false);
     }
 

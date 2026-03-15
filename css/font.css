@@ -10,3 +10,6 @@
     font-weight: 700;
     src: url("../fonts/fairplex-wide-n7.woff") format("woff2");
 }
+.auth-buttons a{
+  margin-left: 10px;
+}
