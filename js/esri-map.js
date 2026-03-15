@@ -40,8 +40,8 @@ WildRydes.map = WildRydes.map || {};
 
         var unicornSymbol = new PictureMarkerSymbol({
             url: '/images/mini-van.png',
-            //width: '25px',
-            //height: '25px'
+            width: '50px',
+            height: '50px'
         });
 
         var pinGraphic;
