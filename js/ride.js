@@ -26,10 +26,12 @@ WildRydes.map = WildRydes.map || {};
                     Latitude: pickup.latitude,
                     Longitude: pickup.longitude
                 },
-                DropoffLocation: {  // ← new!
+                DropoffLocation: {
                     Latitude: dropoff.latitude,
                     Longitude: dropoff.longitude
-                }
+                },
+                PickupName: pickup.name || "Unknown",
+                DropoffName: dropoff.name || "Unknown"
             }),
             contentType: 'application/json',
             success: completeRequest,
@@ -213,9 +215,14 @@ $('#showHistory').click(async function () {
                 timeStyle: 'short'
             });
 
+            const pickup = ride.PickupName || "Not recorded";
+            const dropoff = ride.DropoffName || "Not recorded";
+
             html += `
                 <li>
                     <div><strong>${time}</strong></div>
+                    <div><b>Pickup:</b> ${pickup}</div>
+                    <div><b>Drop-off:</b> ${dropoff}</div>
                     <div>Unicorn: ${ride.Unicorn.Name} (${ride.Unicorn.CarNumber})</div>
                     <div>Gender: ${ride.Unicorn.Gender}</div>
                 </li>
@@ -287,11 +294,11 @@ function completeRequest(result) {
     animateArrival(function () {
         console.log("Unicorn animation finished!");   // ← ADD THIS
         displayUpdate(`${unicorn.Name} has arrived at pickup! Hop in!`);
-        if (WildRydes.map.clearGraphics) {
+        /*if (WildRydes.map.clearGraphics) {
             WildRydes.map.clearGraphics('unicorn');
         } else {
             console.warn("clearGraphics not available");
-        }
+        }*/
         $('#request').prop('disabled', true).text('Ride In Progress');
         $('#newRide').show();
     });
