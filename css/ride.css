@@ -1,63 +1,136 @@
+/* Full height map */
 html, body, #main, #map {
-    padding: 0;
-    margin: 0;
     height: 100%;
-    width: 100%;
+    margin: 0;
+    padding: 0;
 }
 
-.info {
+/* Main controls bar - fixed/sticky at top */
+.controls-bar {
     position: absolute;
-    right: 10px;
     top: 10px;
-    z-index: 100;
-    width: 275px;
-    background: transparent;
+    left: 10px;
+    right: 10px;
+    z-index: 1000;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    align-items: center;
+    background: rgba(255, 255, 255, 0.92);
+    padding: 12px 15px;
+    border-radius: 8px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.18);
+    backdrop-filter: blur(6px);
 }
 
-.info .panel-body {
-    background: transparent;
+/* Button group spacing & icons */
+.btn-group .btn {
+    font-weight: 500;
 }
 
-.panel-body{
-    max-height: 250px;
-    overflow-y: auto;
-    padding-right: 10px;
-}
+.btn-primary    { background-color: #007bff; border-color: #0069d9; }
+.btn-danger     { background-color: #dc3545; border-color: #c82333; }
+.btn-warning    { background-color: #ffc107; border-color: #e0a800; color: #212529; }
+.btn-success    { background-color: #28a745; border-color: #218838; font-size: 1.1rem; padding: 10px 24px; }
+.btn-info       { background-color: #17a2b8; border-color: #138496; }
 
+/* Larger request button */
 #request {
-    position: relative;
-    background: #c1fafc none repeat scroll 0 0;
-    color: #000;
-    border-color: #000;
-    border-radius: 5px;
-    text-align: center;
-    width: 135px;
+    font-weight: bold;
+    min-width: 160px;
 }
 
 #request:disabled {
-    color: #999;
-    border-color: #999;
+    opacity: 0.65;
+    cursor: not-allowed;
 }
 
-#accountLink {
-    background: inherit;
+/* Account dropdown */
+.account-dropdown {
+    margin-left: auto;          /* pushes to right */
 }
 
-#updates {
+.account-dropdown .btn-link {
+    color: #333;
+    font-weight: 500;
+    padding: 8px 12px;
+}
+
+.account-dropdown .glyphicon-user {
+    margin-right: 6px;
+}
+
+/* Updates panel - bottom right or wherever you prefer */
+.info-panel {
+    position: absolute;
+    bottom: 20px;
+    right: 20px;
+    width: 320px;
+    z-index: 900;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 10px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+    overflow: hidden;
+    backdrop-filter: blur(8px);
+}
+
+.info-panel .panel-heading {
+    background: #343a40;
+    color: white;
+    padding: 10px 15px;
+    font-weight: 600;
+    font-size: 1.05rem;
+}
+
+.info-panel .panel-body {
+    max-height: 280px;
+    overflow-y: auto;
+    padding: 12px;
+}
+
+.updates-list {
     list-style: none;
-    margin-top: 5px;
+    margin: 0;
     padding: 0;
 }
 
-#updates li {
-    margin: 3px 0;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    background-color: #f7f7f7;
-    padding: 5px;
+.updates-list li {
+    background: #f8f9fa;
+    border-radius: 6px;
+    padding: 10px 12px;
+    margin-bottom: 8px;
+    border-left: 4px solid #007bff;
+    font-size: 0.95rem;
+    line-height: 1.4;
 }
 
-.authToken {
-    word-wrap: break-word;
-    width: 100%;
+.updates-list li strong {
+    color: #0056b3;
+}
+
+/* Scrollbar styling (optional but nice) */
+.info-panel .panel-body::-webkit-scrollbar {
+    width: 6px;
+}
+.info-panel .panel-body::-webkit-scrollbar-thumb {
+    background: #adb5bd;
+    border-radius: 3px;
+}
+.ride-history {
+    list-style: none;
+    padding: 0;
+    margin: 12px 0;
+}
+
+.ride-history li {
+    background: #f8f9fa;
+    border-radius: 6px;
+    padding: 10px 14px;
+    margin-bottom: 10px;
+    border-left: 4px solid #17a2b8;
+}
+
+.ride-history li div {
+    margin: 4px 0;
+    font-size: 0.95rem;
 }

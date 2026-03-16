@@ -22,22 +22,48 @@
 
 <body>
 
-    <div class="info panel panel-default">
-        <div class="panel-heading">
-            <button id="request" class="btn btn-primary" disabled="disabled">Set pickup</button>
-            <div class="dropdown pull-right">
-                <button id="accountLink" class="btn" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    Account <span class="caret"></span>
-                </button>
-                <ul class="dropdown-menu" aria-labelledby="accountLink">
-                    <li><a id="signOut" href="#">Sign out</a></li>
-                </ul>
-            </div>
+    <div class="controls-bar">
+        <div class="btn-group" role="group">
+            <button id="setPickup" class="btn btn-primary btn-sm">
+                <i class="glyphicon glyphicon-map-marker"></i> Set Pickup
+            </button>
+            <button id="setDropoff" class="btn btn-danger btn-sm">
+                <i class="glyphicon glyphicon-flag"></i> Set Drop-off
+            </button>
+            <button id="resetLocations" class="btn btn-warning btn-sm">
+                <i class="glyphicon glyphicon-refresh"></i> Reset
+            </button>
         </div>
+
+        <button id="request" class="btn btn-success btn-lg" disabled>
+            Request Ride
+        </button>
+
+        <button id="newRide" class="btn btn-info btn-lg" style="display:none;">
+            New Ride
+        </button>
+
+        <button id="showHistory" class="btn btn-info btn-sm">
+            <i class="glyphicon glyphicon-list"></i> My Rides
+        </button>
+        
+        <!-- Account dropdown (kept but modernized) -->
+        <div class="dropdown account-dropdown">
+            <button id="accountLink" class="btn btn-link dropdown-toggle" type="button" data-toggle="dropdown">
+                <span class="glyphicon glyphicon-user"></span> Account
+                <span class="caret"></span>
+            </button>
+            <ul class="dropdown-menu dropdown-menu-right">
+                <li><a id="signOut" href="#">Sign out</a></li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- Updates panel (moved outside heading for better layout) -->
+    <div class="info-panel">
+        <div class="panel-heading">Ride Updates</div>
         <div class="panel-body">
-            <ol id="updates">
-                <li>Welcome! Click the map to set your pickup location.</li>
-            </ol>
+            <ul id="updates" class="updates-list"></ul>
         </div>
     </div>
 
