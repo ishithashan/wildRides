@@ -72,7 +72,7 @@ WildRydes.map = WildRydes.map || {};
             updateCenter(view.center);
         });
 
-        view.on('click', function handleViewClick(event) {
+        /*view.on('click', function handleViewClick(event) {
             wrMap.selectedPoint = event.mapPoint;
             view.graphics.remove(pinGraphic);
             pinGraphic = new Graphic({
@@ -81,6 +81,37 @@ WildRydes.map = WildRydes.map || {};
             });
             view.graphics.add(pinGraphic);
             $(wrMap).trigger('pickupChange');
+        });*/
+        view.on('click', function handleViewClick(event) {
+            wrMap.selectedPoint = event.mapPoint;
+            view.graphics.remove(pinGraphic);
+            pinGraphic = new Graphic({
+                symbol: pinSymbol,
+                geometry: wrMap.selectedPoint
+            });
+            view.graphics.add(pinGraphic);
+            var lat = event.mapPoint.latitude;
+            var lon = event.mapPoint.longitude;
+            fetch("https://geocode.arcgis.com/arcgis/rest/services/World/GeocodeServer/reverseGeocode?location="
+                + lon + "," + lat + "&f=pjson")
+                .then(response => response.json())
+                .then(data => {
+                    if (data.address) {
+                        wrMap.locationName =
+                            data.address.Neighborhood ||
+                            data.address.District ||
+                            data.address.Subregion ||
+                            data.address.City ||
+                            "Unknown location";
+                    } else {
+                        wrMap.locationName = "Unknown location";
+                    }
+                    $(wrMap).trigger('pickupChange');
+                })
+                .catch(() => {
+                    wrMap.locationName = "Unknown location";
+                    $(wrMap).trigger('pickupChange');
+                });
         });
 
         wrMap.animate = function animate(origin, dest, callback) {

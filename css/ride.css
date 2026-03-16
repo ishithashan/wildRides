@@ -18,6 +18,12 @@ html, body, #main, #map {
     background: transparent;
 }
 
+.panel-body{
+    max-height: 250px;
+    overflow-y: auto;
+    padding-right: 10px;
+}
+
 #request {
     position: relative;
     background: #c1fafc none repeat scroll 0 0;

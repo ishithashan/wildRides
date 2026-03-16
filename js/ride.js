@@ -44,7 +44,7 @@ WildRydes.map = WildRydes.map || {};
         console.log('Response received from API: ', result);
         unicorn = result.Unicorn;
         pronoun = unicorn.Gender === 'Male' ? 'his' : 'her';
-        displayUpdate(unicorn.Name + ', your ' + unicorn.Color + ' car, is on ' + pronoun + ' way.');
+        displayUpdate('Driver: ' + unicorn.Name + ', your car (' + unicorn.CarNumber + ') is on ' + pronoun + ' way.');
         animateArrival(function animateCallback() {
             displayUpdate(unicorn.Name + ' has arrived. Hop up!');
             WildRydes.map.unsetLocation();
@@ -70,7 +70,55 @@ WildRydes.map = WildRydes.map || {};
         }
     });
 
-    function handlePickupChanged() {
+    function calculateDistance(lat1, lon1, lat2, lon2) {
+        var R = 6371; // km
+        var dLat = (lat2 - lat1) * Math.PI / 180;
+        var dLon = (lon2 - lon1) * Math.PI / 180;
+
+        var a =
+            Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+            Math.cos(lat1 * Math.PI / 180) *
+            Math.cos(lat2 * Math.PI / 180) *
+            Math.sin(dLon / 2) *
+            Math.sin(dLon / 2);
+
+        var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+
+        return R * c;
+    }
+
+    function estimateFare(distance) {
+        var baseFare = 50;     // ₹
+        var perKm = 12;        // ₹ per km
+
+        return baseFare + (distance * perKm);
+    }
+
+    /*function handlePickupChanged() {
+        var requestButton = $('#request');
+        requestButton.text('Request Car');
+        requestButton.prop('disabled', false);
+    }*/
+   function handlePickupChanged() {
+        var pickup = WildRydes.map.selectedPoint;
+        var baseLat = 13.0096;
+        var baseLon = 80.0043;
+
+        var distance = calculateDistance(
+            baseLat,
+            baseLon,
+            pickup.latitude,
+            pickup.longitude
+        );
+
+        var fare = estimateFare(distance);
+
+        displayUpdate(
+            "Distance: " + distance.toFixed(2) +
+            " km | Estimated Fare: ₹" + Math.round(fare) + 
+            " | Pickup location: " + WildRydes.map.locationName
+        );
+
         var requestButton = $('#request');
         requestButton.text('Request Car');
         requestButton.prop('disabled', false);
@@ -102,6 +150,12 @@ WildRydes.map = WildRydes.map || {};
     }
 
     function displayUpdate(text) {
-        $('#updates').append($('<li>' + text + '</li>'));
+        var updates = $('#updates');
+        updates.append($('<li>' + text + '</li>'));
+        if (updates.children().length > 10) {
+            updates.children().first().remove();
+        }
+        var panelBody = updates.parent(); // this is .panel-body
+        panelBody.scrollTop(panelBody[0].scrollHeight);
     }
 }(jQuery));
