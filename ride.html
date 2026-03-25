@@ -87,61 +87,63 @@
             </div>
         </div>
     </div>
-
+    <div id="lex-chat-container"></div> 
     <!-- Amazon Lex Chatbot Widget -->
     <script>
-      console.log("🚀 Starting Lex Chatbot initialization...");
+      // Wait until the entire page is loaded
+      window.addEventListener('load', function() {
+        console.log("🚀 Page fully loaded - Starting Lex Chatbot");
     
-      // Load Lex Web UI manually
-      const script = document.createElement("script");
-      script.src = "https://lex-web-ui.s3.amazonaws.com/lex-web-ui-loader.min.js";
-      script.async = true;
+        const script = document.createElement("script");
+        script.src = "https://cdn.jsdelivr.net/npm/amazon-lex-web-ui@2.0.0/dist/lex-web-ui-loader.min.js";
+        script.async = true;
     
-      script.onload = function() {
-        console.log("✅ Lex Web UI Library Loaded Successfully!");
+        script.onload = function() {
+          console.log("✅ Lex Web UI Library Loaded Successfully!");
     
-        const config = {
-          baseUrl: "https://lex-web-ui.s3.amazonaws.com",
-          bot: {
-            botId: "PBE6TNFJB7",
-            aliasId: "TSTALIASID",
-            localeId: "en_US",
-            region: "ap-southeast-1"
-          },
-          ui: {
-            header: {
-              title: "ShareX Assistant 🦄",
-              subtitle: "Book a ride with me"
+          const config = {
+            bot: {
+              botId: "PBE6TNFJB7",
+              aliasId: "TSTALIASID",
+              localeId: "en_US",
+              region: "ap-southeast-1"
             },
-            chat: {
-              placeholder: "Type here... (e.g. book a ride)"
+            ui: {
+              header: {
+                title: "ShareX Assistant",
+                subtitle: "Book a ride with me"
+              },
+              chat: {
+                placeholder: "Type here... (e.g. book a ride)"
+              }
             }
+          };
+    
+          try {
+            const loader = new LexWebUILoader(config);
+            console.log("✅ LexWebUILoader created");
+    
+            const container = document.getElementById("lex-chat-container");
+            loader.load(container);
+            console.log("✅ Chatbot mounted to container");
+    
+            // Auto open
+            setTimeout(() => {
+              loader.show();
+              console.log("✅ Chatbot opened");
+            }, 1200);
+    
+          } catch (err) {
+            console.error("❌ Error initializing chatbot:", err);
           }
         };
     
-        try {
-          const loader = new LexWebUILoader(config);
-          console.log("✅ LexWebUILoader created");
+        script.onerror = function() {
+          console.error("❌ Failed to load Lex Web UI from CDN");
+        };
     
-          loader.load(document.getElementById("lex-chat-container"));
-          console.log("✅ Chatbot mounted to container");
-    
-          // Auto open after 1.5 seconds
-          setTimeout(() => {
-            loader.show();
-            console.log("✅ Chatbot opened automatically");
-          }, 1500);
-    
-        } catch (err) {
-          console.error("❌ Error initializing LexWebUILoader:", err);
-        }
-      };
-    
-      script.onerror = function() {
-        console.error("❌ Failed to load Lex Web UI script from AWS");
-      };
-    
-      document.head.appendChild(script);
+        document.head.appendChild(script);
+      });
     </script>
     
     <style>
@@ -157,10 +159,7 @@
         overflow: hidden;
         background: white;
       }
-    </style>
-    
-    <div id="lex-chat-container"></div>
-    
+    </style>  
     <script src="js/vendor/jquery-3.1.0.js"></script>
     <script src="js/vendor/bootstrap.min.js"></script>
     <script src="js/vendor/aws-cognito-sdk.min.js"></script>
