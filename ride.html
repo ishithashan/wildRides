@@ -115,6 +115,34 @@
         </div>
     </div>
 
+    <!-- Amazon Lex Web UI -->
+    <script src="https://cdn.jsdelivr.net/npm/amazon-lex-web-ui@2.0.0/dist/lex-web-ui.min.js"></script>
+    <script>
+      const lexWebUi = new LexWebUi({
+        baseUrl: 'https://lex-web-ui.s3.amazonaws.com/lex-web-ui.min.js', // optional
+        bot: {
+          name: "ShareXLexChatBot",
+          aliasId: "TSTALIASID",           // Change if you created a new alias
+          botId: "PBE6TNFJB7",             // ← Put your actual Bot ID here
+          localeId: "en_US",
+          region: "ap-southeast-1"
+        },
+        ui: {
+          header: {
+            title: "ShareX Chatbot - Book a Ride 🚕"
+          },
+          chat: {
+            placeholder: "Type your message here..."
+          }
+        }
+      });
+    
+      // Mount the chatbot widget
+      lexWebUi.mount(document.getElementById('lex-chat-container'));
+    </script>
+    
+    <!-- Container where the chatbot will appear -->
+    <div id="lex-chat-container" style="position: fixed; bottom: 20px; right: 20px; z-index: 1000; width: 380px; height: 600px;"></div>
 
     <script src="js/vendor/jquery-3.1.0.js"></script>
     <script src="js/vendor/bootstrap.min.js"></script>
