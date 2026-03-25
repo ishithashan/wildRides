@@ -89,7 +89,60 @@
     </div>
 
     <!-- Amazon Lex Chatbot Widget -->
-    <script src="https://lex-web-ui.s3.amazonaws.com/lex-web-ui-loader.min.js" async></script>
+    <script>
+      console.log("🚀 Starting Lex Chatbot initialization...");
+    
+      // Load Lex Web UI manually
+      const script = document.createElement("script");
+      script.src = "https://lex-web-ui.s3.amazonaws.com/lex-web-ui-loader.min.js";
+      script.async = true;
+    
+      script.onload = function() {
+        console.log("✅ Lex Web UI Library Loaded Successfully!");
+    
+        const config = {
+          baseUrl: "https://lex-web-ui.s3.amazonaws.com",
+          bot: {
+            botId: "PBE6TNFJB7",
+            aliasId: "TSTALIASID",
+            localeId: "en_US",
+            region: "ap-southeast-1"
+          },
+          ui: {
+            header: {
+              title: "ShareX Assistant 🦄",
+              subtitle: "Book a ride with me"
+            },
+            chat: {
+              placeholder: "Type here... (e.g. book a ride)"
+            }
+          }
+        };
+    
+        try {
+          const loader = new LexWebUILoader(config);
+          console.log("✅ LexWebUILoader created");
+    
+          loader.load(document.getElementById("lex-chat-container"));
+          console.log("✅ Chatbot mounted to container");
+    
+          // Auto open after 1.5 seconds
+          setTimeout(() => {
+            loader.show();
+            console.log("✅ Chatbot opened automatically");
+          }, 1500);
+    
+        } catch (err) {
+          console.error("❌ Error initializing LexWebUILoader:", err);
+        }
+      };
+    
+      script.onerror = function() {
+        console.error("❌ Failed to load Lex Web UI script from AWS");
+      };
+    
+      document.head.appendChild(script);
+    </script>
     
     <style>
       #lex-chat-container {
@@ -97,51 +150,16 @@
         bottom: 20px;
         left: 20px;
         z-index: 10000;
-        width: 220px;
+        width: 320px;
         height: 320px;
         border-radius: 12px;
         box-shadow: 0 8px 25px rgba(0,0,0,0.25);
         overflow: hidden;
+        background: white;
       }
     </style>
     
     <div id="lex-chat-container"></div>
-    
-    <script>
-      // Wait for the script to load
-      window.addEventListener('load', function() {
-        const botId = "PBE6TNFJB7";
-        const aliasId = "TSTALIASID";
-    
-        const config = {
-          baseUrl: 'https://lex-web-ui.s3.amazonaws.com',
-          bot: {
-            botId: botId,
-            aliasId: aliasId,
-            localeId: "en_US",
-            region: "ap-southeast-1"
-          },
-          ui: {
-            header: {
-              title: "ShareX Assistant",
-              subtitle: "Book a ride"
-            },
-            chat: {
-              placeholder: "Type here... (try 'book a ride')"
-            }
-          }
-        };
-    
-        // Initialize the loader
-        const loader = new LexWebUILoader(config);
-        loader.load(document.getElementById('lex-chat-container'));
-    
-        // Auto open
-        setTimeout(() => {
-          loader.show();
-        }, 1500);
-      });
-    </script>
     
     <script src="js/vendor/jquery-3.1.0.js"></script>
     <script src="js/vendor/bootstrap.min.js"></script>
