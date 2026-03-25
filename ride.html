@@ -66,33 +66,6 @@
             <ul id="updates" class="updates-list"></ul>
         </div>
     </div>
-
-   <!-- <div id="noApiMessage" class="configMessage" style="display: none;">
-        <div class="backdrop"></div>
-        <div class="panel panel-default">
-            <div class="panel-heading">
-                <h3 class="panel-title">Successfully Authenticated!</h3>
-            </div>
-            <div class="panel-body">
-                <p>This page is not functional yet because there is no API invoke URL configured in <a href="/js/config.js">/js/config.js</a>. You'll configure this in Module 3.</p>
-                <p>In the meantime, if you'd like to test the Amazon Cognito user pool authorizer for your API, use the auth token below:</p>
-                <textarea class="authToken"></textarea>
-            </div>
-        </div>
-    </div>
-
-    <div id="noCognitoMessage" class="configMessage" style="display: none;">
-        <div class="backdrop"></div>
-        <div class="panel panel-default">
-            <div class="panel-heading">
-                <h3 class="panel-title">No Cognito User Pool Configured</h3>
-            </div>
-            <div class="panel-body">
-                <p>There is no user pool configured in <a href="/js/config.js">/js/config.js</a>. You'll configure this in Module 2 of the workshop.</p>
-            </div>
-        </div>
-    </div> -->
-
     <div id="main">
         <div id="map">
         </div>
@@ -116,7 +89,7 @@
     </div>
 
     <!-- Amazon Lex Chatbot Widget -->
-    <script src="https://lex-web-ui.s3.amazonaws.com/lex-web-ui-loader.min.js"></script>
+    <script src="https://lex-web-ui.s3.amazonaws.com/lex-web-ui-loader.min.js" async></script>
     
     <style>
       #lex-chat-container {
@@ -124,7 +97,7 @@
         bottom: 20px;
         left: 20px;
         z-index: 10000;
-        width: 320px;
+        width: 220px;
         height: 320px;
         border-radius: 12px;
         box-shadow: 0 8px 25px rgba(0,0,0,0.25);
@@ -135,36 +108,39 @@
     <div id="lex-chat-container"></div>
     
     <script>
-      const botId = "PBE6TNFJB7"; 
-      const aliasId = "TSTALIASID";
+      // Wait for the script to load
+      window.addEventListener('load', function() {
+        const botId = "PBE6TNFJB7";
+        const aliasId = "TSTALIASID";
     
-      const config = {
-        baseUrl: 'https://lex-web-ui.s3.amazonaws.com',
-        bot: {
-          botId: botId,
-          aliasId: aliasId,
-          localeId: "en_US",
-          region: "ap-southeast-1"
-        },
-        ui: {
-          header: {
-            title: "ShareX Assistant",
-            subtitle: "Book a ride with me"
+        const config = {
+          baseUrl: 'https://lex-web-ui.s3.amazonaws.com',
+          bot: {
+            botId: botId,
+            aliasId: aliasId,
+            localeId: "en_US",
+            region: "ap-southeast-1"
           },
-          chat: {
-            placeholder: "Type here... (try 'book a ride')"
+          ui: {
+            header: {
+              title: "ShareX Assistant",
+              subtitle: "Book a ride"
+            },
+            chat: {
+              placeholder: "Type here... (try 'book a ride')"
+            }
           }
-        }
-      };
+        };
     
-      // Load the chatbot
-      const loader = new LexWebUILoader(config);
-      loader.load(document.getElementById('lex-chat-container'));
+        // Initialize the loader
+        const loader = new LexWebUILoader(config);
+        loader.load(document.getElementById('lex-chat-container'));
     
-      // Auto open after 2 seconds
-      setTimeout(() => {
-        loader.show();
-      }, 2000);
+        // Auto open
+        setTimeout(() => {
+          loader.show();
+        }, 1500);
+      });
     </script>
     
     <script src="js/vendor/jquery-3.1.0.js"></script>
