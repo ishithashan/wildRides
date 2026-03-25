@@ -116,30 +116,30 @@
     </div>
 
     <!-- Amazon Lex Chatbot Widget -->
-    <script src="https://cdn.jsdelivr.net/npm/amazon-lex-web-ui@2.0.0/dist/lex-web-ui.min.js"></script>
+    <script src="https://lex-web-ui.s3.amazonaws.com/lex-web-ui-loader.min.js"></script>
     
     <style>
       #lex-chat-container {
         position: fixed;
         bottom: 20px;
-        left: 20px;           /* Changed to left side */
+        left: 20px;
         z-index: 10000;
-        width: 320px;         /* Smaller width */
-        height: 520px;        /* Smaller height */
+        width: 320px;
+        height: 320px;
         border-radius: 12px;
-        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.25);
+        box-shadow: 0 8px 25px rgba(0,0,0,0.25);
         overflow: hidden;
-        background: white;
       }
     </style>
     
     <div id="lex-chat-container"></div>
     
     <script>
-      const botId = "PBE6TNFJB7";        // ← Put your Bot ID
-      const aliasId = "TSTALIASID";            // Usually this one
+      const botId = "PBE6TNFJB7"; 
+      const aliasId = "TSTALIASID";
     
-      const lexWebUi = new LexWebUi({
+      const config = {
+        baseUrl: 'https://lex-web-ui.s3.amazonaws.com',
         bot: {
           botId: botId,
           aliasId: aliasId,
@@ -148,22 +148,25 @@
         },
         ui: {
           header: {
-            title: "ShareX Ride Assistant",
-            subtitle: "Ask me to book a ride"
+            title: "ShareX Assistant",
+            subtitle: "Book a ride with me"
           },
           chat: {
-            placeholder: "Type here... (e.g. book a ride)"
+            placeholder: "Type here... (try 'book a ride')"
           }
         }
-      });
+      };
     
-      lexWebUi.mount(document.getElementById('lex-chat-container'));
+      // Load the chatbot
+      const loader = new LexWebUILoader(config);
+      loader.load(document.getElementById('lex-chat-container'));
     
-      // Auto open after 1.5 seconds
+      // Auto open after 2 seconds
       setTimeout(() => {
-        lexWebUi.show();
-      }, 1500);
+        loader.show();
+      }, 2000);
     </script>
+    
     <script src="js/vendor/jquery-3.1.0.js"></script>
     <script src="js/vendor/bootstrap.min.js"></script>
     <script src="js/vendor/aws-cognito-sdk.min.js"></script>
