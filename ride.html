@@ -89,159 +89,271 @@
     </div>
     <div id="lex-chat-container"></div> 
     <!-- Amazon Lex Chatbot Widget -->
-    <style>
-      #lex-chat-container {
-        position: fixed;
-        bottom: 20px;
-        left: 20px;
-        z-index: 10000;
-        width: 340px;
-        height: 360px;
-        border-radius: 12px;
-        box-shadow: 0 10px 30px rgba(0,0,0,0.3);
-        overflow: hidden;
-        background: white;
-        border: 1px solid #ddd;
-        display: flex;
-        flex-direction: column;
-      }
-    
-      #lex-header {
-        background: #232f3e;
-        color: white;
-        padding: 12px;
-        font-weight: bold;
-      }
-    
-      #lex-messages {
-        flex: 1;
-        padding: 15px;
-        overflow-y: auto;
-        background: #f8f9fa;
-      }
-    
-      #lex-input-area {
-        padding: 10px;
-        border-top: 1px solid #ddd;
-        display: flex;
-      }
-    
-      #lex-input {
-        flex: 1;
-        padding: 12px 16px;
-        border: 1px solid #ccc;
-        border-radius: 25px;
-      }
-    
-      #lex-send {
-        margin-left: 8px;
-        padding: 0 20px;
-        background: #007bff;
-        color: white;
-        border: none;
-        border-radius: 25px;
-        cursor: pointer;
-      }
-    
-      .message {
-        margin: 10px 0;
-        max-width: 85%;
-      }
-    
-      .user-message { text-align: right; }
-      .bot-message { text-align: left; }
-    
-      .bubble {
-        display: inline-block;
-        padding: 10px 15px;
-        border-radius: 18px;
-        line-height: 1.4;
-      }
-    
-      .user-bubble { background: #007bff; color: white; }
-      .bot-bubble { background: #e9ecef; color: #333; }
-    </style>
-    
-    <div id="lex-chat-container">
-      <div id="lex-header">ShareX Assistant 🦄</div>
-      <div id="lex-messages"></div>
-      <div id="lex-input-area">
-        <input type="text" id="lex-input" placeholder="Type here... (e.g. book a ride)" />
-        <button id="lex-send">Send</button>
+    <!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chatbot</title>
+
+  <script src="https://sdk.amazonaws.com/js/aws-sdk-2.1490.0.min.js"></script>
+
+  <style>
+    /* ==================== MODERN DRAGGABLE CHATBOT UI ==================== */
+    body {
+      font-family: 'Segoe UI', system-ui, sans-serif;
+      margin: 0;
+      padding: 20px;
+      background: #f0f2f5;
+    }
+
+    /* Main Chat Container - Small & on the Left */
+    #chat-container {
+      position: fixed;
+      left: 20px;
+      top: 80px;
+      width: 320px;
+      height: 480px;
+      background: white;
+      border-radius: 16px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+      overflow: hidden;
+      border: 1px solid #e0e0e0;
+      display: flex;
+      flex-direction: column;
+      z-index: 1000;
+      resize: both; /* optional: allow user to resize */
+      min-width: 280px;
+      min-height: 300px;
+    }
+
+    /* Header - Draggable Area */
+    #chat-header {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      padding: 12px 16px;
+      font-weight: 600;
+      font-size: 15px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      cursor: move; /* indicates draggable */
+      user-select: none;
+    }
+
+    #chat-header .title {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    #chat-header .status {
+      font-size: 12px;
+      opacity: 0.9;
+    }
+
+    /* Messages Area */
+    #messages {
+      flex: 1;
+      padding: 16px;
+      overflow-y: auto;
+      background: #f8f9fa;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    #messages div {
+      max-width: 85%;
+      padding: 10px 14px;
+      border-radius: 14px;
+      line-height: 1.4;
+      font-size: 14.5px;
+      word-wrap: break-word;
+    }
+
+    #messages div b {
+      font-size: 13px;
+      opacity: 0.8;
+    }
+
+    /* User Message */
+    #messages div:nth-child(odd) {
+      align-self: flex-end;
+      background: #667eea;
+      color: white;
+      border-bottom-right-radius: 4px;
+    }
+
+    /* Bot Message */
+    #messages div:nth-child(even) {
+      align-self: flex-start;
+      background: white;
+      border: 1px solid #e0e0e0;
+      border-bottom-left-radius: 4px;
+    }
+
+    /* Input Area */
+    #input-area {
+      padding: 12px;
+      background: white;
+      border-top: 1px solid #e0e0e0;
+      display: flex;
+      gap: 8px;
+    }
+
+    #input {
+      flex: 1;
+      padding: 12px 16px;
+      border: 1px solid #ddd;
+      border-radius: 30px;
+      font-size: 14px;
+      outline: none;
+      transition: all 0.2s;
+    }
+
+    #input:focus {
+      border-color: #667eea;
+      box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+    }
+
+    #send-btn {
+      width: 44px;
+      height: 44px;
+      background: #667eea;
+      color: white;
+      border: none;
+      border-radius: 50%;
+      cursor: pointer;
+      font-size: 18px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.2s;
+    }
+
+    #send-btn:hover {
+      background: #5a6fd8;
+    }
+
+    /* Scrollbar Styling */
+    #messages::-webkit-scrollbar {
+      width: 6px;
+    }
+    #messages::-webkit-scrollbar-thumb {
+      background: #c1c1c1;
+      border-radius: 10px;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Your Chatbot Container -->
+  <div id="chat-container">
+    <div id="chat-header">
+      <div class="title">
+        <span>🤖</span>
+        <span>AI Assistant</span>
       </div>
+      <span class="status">● Online</span>
     </div>
-    
-    <script>
-      const botId = "PBE6TNFJB7";
-      const aliasId = "TSTALIASID";
-      const region = "ap-southeast-1";
-    
-      const messagesDiv = document.getElementById('lex-messages');
-      const input = document.getElementById('lex-input');
-      const sendBtn = document.getElementById('lex-send');
-    
-      function addMessage(text, isUser) {
-        const div = document.createElement('div');
-        div.className = isUser ? 'message user-message' : 'message bot-message';
-        div.innerHTML = `<div class="bubble ${isUser ? 'user-bubble' : 'bot-bubble'}">${text}</div>`;
-        messagesDiv.appendChild(div);
-        messagesDiv.scrollTop = messagesDiv.scrollHeight;
-      }
-    
-      async function sendToLex(text) {
-        addMessage(text, true);
-    
-        try {
-          const credentials = AWS.config.credentials;
-          if (!credentials) {
-            addMessage("Please log in first to use the chatbot.", false);
-            return;
-          }
-    
-          await new Promise(resolve => credentials.get(resolve));
-    
-          const response = await fetch(`https://runtime-v2-lex.${region}.amazonaws.com/bots/${botId}/botAliases/${aliasId}/botLocales/en_US/sessions/${Date.now()}`, {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json',
-              'X-Amz-Security-Token': credentials.sessionToken
-            },
-            body: JSON.stringify({
-              text: text,
-              localeId: "en_US"
-            })
-          });
-    
-          const data = await response.json();
-    
-          if (data.messages) {
-            data.messages.forEach(msg => {
-              if (msg.content) addMessage(msg.content, false);
-            });
-          }
-        } catch (err) {
+
+    <div id="messages"></div>
+
+    <div id="input-area">
+      <input type="text" id="input" placeholder="Type your message..." autocomplete="off">
+      <button id="send-btn" onclick="sendMessage()">↑</button>
+    </div>
+  </div>
+
+  <!-- Your Original Script (unchanged) -->
+  <script>
+    AWS.config.region = "ap-south-1";
+
+    AWS.config.credentials = new AWS.CognitoIdentityCredentials({
+      IdentityPoolId: "ap-south-1:280780db-65ae-4a79-a33d-97ac27a0f5c2"
+    });
+
+    const lex = new AWS.LexRuntimeV2({ region: "ap-southeast-1" });
+
+    function addMessage(sender, text) {
+      const div = document.createElement("div");
+      div.innerHTML = "<b>" + sender + ":</b> " + text;
+      document.getElementById("messages").appendChild(div);
+      div.scrollIntoView({ behavior: "smooth" });
+    }
+
+    function sendMessage() {
+      const input = document.getElementById("input");
+      const text = input.value.trim();
+
+      if (!text) return;
+
+      addMessage("You", text);
+      input.value = "";
+
+      lex.recognizeText({
+        botId: "PBE6TNFJB7",
+        botAliasId: "TSTALIASID",
+        localeId: "en_US",
+        sessionId: "user123",
+        text: text
+      }, function(err, data) {
+        if (err) {
+          addMessage("Error", "Something went wrong");
           console.error(err);
-          addMessage("Sorry, the chatbot is temporarily unavailable.", false);
+          return;
         }
+
+        const reply = data.messages?.[0]?.content || "No response";
+        addMessage("Bot", reply);
+      });
+    }
+
+    // Allow pressing Enter to send
+    document.getElementById("input").addEventListener("keypress", function(e) {
+      if (e.key === "Enter") sendMessage();
+    });
+  </script>
+
+  <!-- Draggable Functionality -->
+  <script>
+    const chatContainer = document.getElementById('chat-container');
+    const header = document.getElementById('chat-header');
+
+    let isDragging = false;
+    let currentX, currentY, initialX, initialY;
+
+    header.addEventListener('mousedown', (e) => {
+      if (e.target.tagName === 'BUTTON') return; // don't drag when clicking buttons
+
+      isDragging = true;
+      initialX = e.clientX - currentX;
+      initialY = e.clientY - currentY;
+    });
+
+    document.addEventListener('mousemove', (e) => {
+      if (isDragging) {
+        e.preventDefault();
+        currentX = e.clientX - initialX;
+        currentY = e.clientY - initialY;
+
+        chatContainer.style.left = currentX + 'px';
+        chatContainer.style.top = currentY + 'px';
       }
-    
-      sendBtn.addEventListener('click', () => {
-        const text = input.value.trim();
-        if (text) {
-          sendToLex(text);
-          input.value = '';
-        }
-      });
-    
-      input.addEventListener('keypress', (e) => {
-        if (e.key === 'Enter') sendBtn.click();
-      });
-    
-      // Welcome message
-      setTimeout(() => {
-        addMessage("Hello! How can I help you book a ride today? 🦄", false);
-      }, 800);
-    </script>
+    });
+
+    document.addEventListener('mouseup', () => {
+      isDragging = false;
+    });
+
+    // Initialize position
+    currentX = 20;
+    currentY = 80;
+  </script>
+
+</body>
+</html>
     <script src="js/vendor/jquery-3.1.0.js"></script>
     <script src="js/vendor/bootstrap.min.js"></script>
     <script src="js/vendor/aws-cognito-sdk.min.js"></script>
