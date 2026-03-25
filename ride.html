@@ -115,35 +115,55 @@
         </div>
     </div>
 
-    <!-- Amazon Lex Web UI -->
+    <!-- Amazon Lex Chatbot Widget -->
     <script src="https://cdn.jsdelivr.net/npm/amazon-lex-web-ui@2.0.0/dist/lex-web-ui.min.js"></script>
+    
+    <style>
+      #lex-chat-container {
+        position: fixed;
+        bottom: 30px;
+        right: 30px;
+        z-index: 10000;
+        width: 380px;
+        height: 650px;
+        border-radius: 15px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        overflow: hidden;
+        background: white;
+      }
+    </style>
+    
+    <div id="lex-chat-container"></div>
+    
     <script>
+      const botId = "PBE6TNFJB7";        // ← Put your Bot ID
+      const aliasId = "TSTALIASID";            // Usually this one
+    
       const lexWebUi = new LexWebUi({
-        baseUrl: 'https://lex-web-ui.s3.amazonaws.com/lex-web-ui.min.js', // optional
         bot: {
-          name: "ShareXLexChatBot",
-          aliasId: "TSTALIASID",           // Change if you created a new alias
-          botId: "PBE6TNFJB7",             // ← Put your actual Bot ID here
+          botId: botId,
+          aliasId: aliasId,
           localeId: "en_US",
           region: "ap-southeast-1"
         },
         ui: {
           header: {
-            title: "ShareX Chatbot - Book a Ride 🚕"
+            title: "ShareX Ride Assistant",
+            subtitle: "Ask me to book a ride"
           },
           chat: {
-            placeholder: "Type your message here..."
+            placeholder: "Type here... (e.g. book a ride)"
           }
         }
       });
     
-      // Mount the chatbot widget
       lexWebUi.mount(document.getElementById('lex-chat-container'));
-    </script>
     
-    <!-- Container where the chatbot will appear -->
-    <div id="lex-chat-container" style="position: fixed; bottom: 20px; right: 20px; z-index: 1000; width: 380px; height: 600px;"></div>
-
+      // Auto open after 1.5 seconds
+      setTimeout(() => {
+        lexWebUi.show();
+      }, 1500);
+    </script>
     <script src="js/vendor/jquery-3.1.0.js"></script>
     <script src="js/vendor/bootstrap.min.js"></script>
     <script src="js/vendor/aws-cognito-sdk.min.js"></script>
