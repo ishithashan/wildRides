@@ -1,149 +1,185 @@
 <!doctype html>
-<html class="no-js" lang="">
+<html lang="en">
 <head>
-  <meta charset="utf-8">
-  <meta name="description" content="">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Contributors - ShareX</title>
-  <!-- Place favicon1.ico and apple-touch-icon.png in the root directory -->
-  <link rel="icon" type="image/png" href="images/wr-home-SX.jpg">
-  <link rel="stylesheet" href="css/font.css">
-  <link rel="stylesheet" href="css/main.css">
+  
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"/>
+  
+  <link rel="icon" href="images/wr-home-SX.png">
+  
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Playfair+Display:wght@500;600;700&display=swap');
+    
+    body { font-family: 'Inter', system-ui, sans-serif; }
+    .title-font { font-family: 'Playfair Display', serif; }
+    
+    .card-hover:hover {
+      transform: translateY(-12px);
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.3);
+    }
+    /* Background glow */
+.bg-glow {
+  background: radial-gradient(circle at 20% 20%, rgba(234,179,8,0.08), transparent 40%),
+              radial-gradient(circle at 80% 0%, rgba(234,179,8,0.06), transparent 40%),
+              #09090b;
+}
 
-  <script src="js/vendor/modernizr.js"></script>
+/* Section gradient */
+.section-gradient {
+  background: linear-gradient(to bottom, #0a0a0a, #111111);
+}
+
+/* Glass card */
+.glass-card {
+  background: rgba(24, 24, 27, 0.6);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(234,179,8,0.15);
+}
+
+/* Glow hover */
+.card-hover:hover {
+  transform: translateY(-12px);
+  box-shadow: 0 0 40px rgba(234,179,8,0.2);
+}
+
+/* subtle divider */
+.divider {
+  height: 1px;
+  background: linear-gradient(to right, transparent, rgba(234,179,8,0.3), transparent);
+}
+  </style>
 </head>
-<body class="page-investors">
+<body class="bg-glow text-white">
 
-  <div class="top-section">
-    <header class="site-header">
-      <div class="site-logo dark">ShareX</div>
-
-      <div class="row column medium-8 large-6 xlarge-5 xxlarge-4">
-        <h1 class="title">Project Contributors</h1>
-        <p class="content">
-          Built by a passionate team to make ride sharing simple, fast, and reliable.
-        </p>
+  <!-- Navbar -->
+  <header class="fixed top-0 w-full bg-black/95 backdrop-blur-md z-50 border-b border-yellow-500/20">
+    <div class="max-w-7xl mx-auto px-6 py-5 flex justify-between items-center">
+      <div class="flex items-center gap-3">
+        <span class="text-4xl">🌿</span>
+        <h1 class="text-3xl font-bold title-font tracking-tight text-yellow-400">ShareX</h1>
       </div>
 
-      <nav class="site-nav">
-        <ul>
-          <li><a href="index.html">Home</a></li>
-          <li><a href="cars.html">Meet the Cabbies</a></li>
-          <li><a href="investors.html">Contributors</a></li>
-          <li><a href="faq.html">FAQ</a></li>
-          <!--<li><a href="apply.html">Services</a></li>-->
-        </ul>
+      <nav id="desktop-menu" class="hidden md:flex items-center gap-8 text-sm font-medium">
+        <a href="index.html" class="hover:text-yellow-400 transition">Home</a>
+        <a href="cars.html" class="hover:text-yellow-400 transition">Vehicles</a>
+        <a href="investors.html" class="text-yellow-400">Contributors</a>
+        <a href="faq.html" class="hover:text-yellow-400 transition">FAQ</a>
       </nav>
-      <button type="button" class="btn-menu"><span>Menu</span></button>
-    </header>
 
-    <div class="investors-list">
-      <div class="row">
-        <div class="columns large-4">
-          <div class="investor">
-            <h2 class="title pcp"></h2>
-            <div class="subtitle"></div>
-            <p class="content">
-              
-            </p>
-          </div>
-        </div>
+      <div class="flex items-center gap-4">
+        <a href="signin.html" class="hidden md:block px-6 py-2.5 text-sm font-medium border border-yellow-400 text-yellow-400 rounded-full hover:bg-yellow-400 hover:text-black transition">
+          Sign In
+        </a>
+        <a href="register.html" class="px-6 py-2.5 text-sm font-medium bg-yellow-400 hover:bg-yellow-500 text-black rounded-full transition">
+          Get Started
+        </a>
 
-        <div class="columns large-4">
-          <div class="investor">
-            <h2 class="title awesome">Ayyadurai M</h2>
-            <div class="subtitle">Project Mentor</div>
-            <p class="content">
-              We are grateful for the continuous support and encouragement from our mentor. Their presence and valuable suggestions helped our team stay motivated and complete this project successfully.
-            </p>
-          </div>
-        </div>
-
-        <div class="columns large-4">
-          <div class="investor">
-            <h2 class="title barn"></h2>
-            <div class="subtitle"></div>
-            <p class="content">
-            </p>
-          </div>
-        </div>
+        <button id="menu-btn" class="md:hidden text-3xl text-yellow-400">
+          <i class="fas fa-bars"></i>
+        </button>
       </div>
+    </div>
+
+    <!-- Mobile Menu -->
+    <div id="mobile-menu" class="hidden md:hidden bg-black/95 border-t border-yellow-500/20 py-6">
+      <div class="flex flex-col items-center gap-6 text-lg">
+        <a href="index.html" class="hover:text-yellow-400">Home</a>
+        <a href="cars.html" class="hover:text-yellow-400">Vehicles</a>
+        <a href="investors.html" class="text-yellow-400">Contributors</a>
+        <a href="faq.html" class="hover:text-yellow-400">FAQ</a>
+        <a href="signin.html" class="text-yellow-400">Sign In</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero -->
+  <section class="pt-28 pb-20 text-center relative overflow-hidden">
+  <div class="absolute inset-0 bg-gradient-to-b from-yellow-500/5 to-transparent"></div>
+
+  <div class="relative max-w-7xl mx-auto px-6">
+    <h1 class="text-5xl md:text-6xl font-bold title-font mb-4">
+      Meet the Team Behind <span class="text-yellow-400">ShareX</span>
+    </h1>
+    <p class="text-xl text-gray-400 max-w-2xl mx-auto">
+      A passionate group building smarter, faster and more reliable ride experiences.
+    </p>
+  </div>
+</section>
+
+  <!-- Mentor -->
+<section class="py-20 section-gradient">
+  <div class="max-w-4xl mx-auto px-6 text-center">
+    <div class="glass-card rounded-3xl p-12 relative overflow-hidden">
+
+      <div class="absolute -top-10 -right-10 w-40 h-40 bg-yellow-400/10 rounded-full blur-3xl"></div>
+
+      <div class="text-5xl text-yellow-400 mb-4">
+        <i class="fas fa-user-tie"></i>
+      </div>
+
+      <h2 class="text-3xl font-semibold mb-2">Ayyadurai M</h2>
+      <p class="text-yellow-400 mb-6">Project Mentor</p>
+
+      <p class="text-gray-300 text-lg leading-relaxed">
+        We are grateful for the continuous support and encouragement from our mentor. 
+        Their valuable guidance helped our team stay motivated and complete this project successfully.
+      </p>
     </div>
   </div>
+</section>
 
-  <section class="board-directors">
-    <div class="row">
-      <div class="columns large-4 large-push-4">
-        <div class="intro block">
-          <h2 class="title">Project Contributors</h2>
-          <p class="content">
-          This ride-sharing platform was developed by a dedicated team with the guidance and support of our mentor. Their knowledge and encouragement helped us build a reliable and efficient system.
-          </p>
-        </div>
-      </div>
+<div class="divider my-10"></div>
+  <!-- Team Members -->
+  <section class="py-20 bg-zinc-950">
+    <div class="max-w-7xl mx-auto px-6">
+      <h2 class="text-4xl font-bold title-font text-center mb-16">Our Team</h2>
+      <div class="grid md:grid-cols-3 gap-8">
 
-      <div class="columns large-4 large-pull-4">
-        <div class="one block">
-          <h3 class="title">Bhuvaneshwari K</h3>
-          <p class="content">Frontend development, UI design and Research</p>
+        <div class="card-hover bg-zinc-900 border border-yellow-500/20 rounded-3xl p-8 text-center">
+          <h3 class="text-2xl font-semibold mb-3">Ishitha S</h3>
+          <p class="text-yellow-400 mb-6">Cloud Deployment,  UI Design & Backend</p>
+          <p class="text-gray-400">Cloud deployment, backend development and system integration.</p>
         </div>
-      </div>
 
-      <div class="columns large-4">
-        <div class="two block">
-          <h3 class="title">Vetriselvi M</h3>
-          <p class="content">Database management and testing</p>
+        <div class="card-hover bg-zinc-900 border border-yellow-500/20 rounded-3xl p-8 text-center">
+          <h3 class="text-2xl font-semibold mb-3">Bhuvaneshwari K</h3>
+          <p class="text-yellow-400 mb-6">Frontend Development</p>
+          <p class="text-gray-400">Responsible for beautiful user interface and research.</p>
         </div>
-      </div>
-    </div>
 
-    <div class="row">
-      <div class="columns large-4">
-        <div class="three block">
-          <h3 class="title"></h3>
-          <p class="content"></p>
+        <div class="card-hover bg-zinc-900 border border-yellow-500/20 rounded-3xl p-8 text-center">
+          <h3 class="text-2xl font-semibold mb-3">Vetriselvi M</h3>
+          <p class="text-yellow-400 mb-6">Database Management & Testing</p>
+          <p class="text-gray-400">Handled backend data and ensured everything works smoothly.</p>
         </div>
-      </div>
 
-      <div class="columns large-4">
-        <div class="four block">
-          <h3 class="title">Ishitha S</h3>
-          <p class="content">Cloud deployment, Backend development and system integration.</p>
-        </div>
-      </div>
-
-      <div class="columns large-4">
-        <div class="five block">
-          <h3 class="title"></h3>
-          <p class="content"></p>
-        </div>
       </div>
     </div>
   </section>
-
-  <footer class="site-footer">
-    <div class="row column">
-      <nav class="footer-nav">
-        <ul>
-          <li><a href="index.html">Home</a></li>
-          <li><a href="cars.html">Meet the Cabbies</a></li>
-          <li><a href="investors.html">Contributors</a></li>
-          <li><a href="faq.html">FAQ</a></li>
-          <!--<li><a href="apply.html">Apply</a></li>-->
-        </ul>
-      </nav>
-    </div>
-
-    <div class="row column">
-      <div class="footer-legal">
-        &copy;REC ShareX Inc<br>
-        All Rights Reserved
-      </div>
+<div class="divider my-10"></div>
+  <!-- Footer -->
+  <footer class="bg-black text-yellow-400 py-16">
+    <div class="max-w-7xl mx-auto px-6 text-center">
+      <p class="mb-4">© 2026 ShareX • All Rights Reserved</p>
     </div>
   </footer>
 
   <script src="js/vendor.js"></script>
-
   <script src="js/main.js"></script>
+
+  <!-- Mobile Menu -->
+  <script>
+    const menuBtn = document.getElementById('menu-btn');
+    const mobileMenu = document.getElementById('mobile-menu');
+    menuBtn.addEventListener('click', () => {
+      mobileMenu.classList.toggle('hidden');
+      const icon = menuBtn.querySelector('i');
+      icon.classList.toggle('fa-bars');
+      icon.classList.toggle('fa-times');
+    });
+  </script>
 </body>
 </html>

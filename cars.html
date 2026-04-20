@@ -1,127 +1,237 @@
 <!doctype html>
-<html class="no-js" lang="">
+<html lang="en">
 <head>
-  <meta charset="utf-8">
-  <meta name="description" content="">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Cars - ShareX</title>
-  <!-- Place favicon1.ico and apple-touch-icon.png in the root directory -->
-         
-  <link rel="icon" type="image/png" href="images/wr-home-SX.jpg">
-  <link rel="stylesheet" href="css/font.css">
-  <link rel="stylesheet" href="css/main.css">
-
-  <script src="js/vendor/modernizr.js"></script>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Our Vehicles — ShareX</title>
+  
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"/>
+  
+  <link rel="icon" href="images/wr-home-SX.png">
+  
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Playfair+Display:wght@500;600;700&display=swap');
+    
+    body { font-family: 'Inter', system-ui, sans-serif; }
+    .title-font { font-family: 'Playfair Display', serif; }
+    
+    .car-card {
+      transition: all 0.4s ease;
+    }
+    .car-card:hover {
+      transform: translateY(-12px);
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.3);
+    }
+    .divider {
+  height: 1px;
+  background: linear-gradient(to right, transparent, rgba(234,179,8,0.3), transparent);
+}
+  </style>
 </head>
-<body class="page-unicorns">
+<body class="bg-zinc-950 text-white">
 
-  <header class="site-header">
-    <div class="site-logo dark">ShareX</div>
+  <!-- Navbar -->
+  <header class="fixed top-0 w-full bg-black/95 backdrop-blur-md z-50 border-b border-yellow-500/20">
+    <div class="max-w-7xl mx-auto px-6 py-5 flex justify-between items-center">
+      <div class="flex items-center gap-3">
+        <span class="text-4xl">🌿</span>
+        <h1 class="text-3xl font-bold title-font tracking-tight text-yellow-400">ShareX</h1>
+      </div>
 
-    <div class="row column medium-8 large-6 xlarge-5 xxlarge-4">
-      <h1 class="title">OUR DRIVERS ARE OUR STRENGTH</h1>
-      <p class="content">
-        Our platform is powered by technology, but our drivers make the service possible.They ensure every ride is safe, comfortable, and reliable.Meet our trusted drivers and see who will be taking you to your destination.
-      </p>
+      <!-- Desktop Menu -->
+      <nav id="desktop-menu" class="hidden md:flex items-center gap-8 text-sm font-medium">
+        <a href="index.html" class="hover:text-yellow-400 transition">Home</a>
+        <a href="cars.html" class="text-yellow-400">Vehicles</a>
+        <a href="investors.html" class="hover:text-yellow-400 transition">Contributors</a>
+        <a href="faq.html" class="hover:text-yellow-400 transition">FAQ</a>
+      </nav>
+
+      <div class="flex items-center gap-4">
+        <a href="signin.html" class="hidden md:block px-6 py-2.5 text-sm font-medium border border-yellow-400 text-yellow-400 rounded-full hover:bg-yellow-400 hover:text-black transition">
+          Sign In
+        </a>
+        <a href="register.html" class="px-6 py-2.5 text-sm font-medium bg-yellow-400 hover:bg-yellow-500 text-black rounded-full transition">
+          Book Ride
+        </a>
+
+        <!-- Mobile Hamburger -->
+        <button id="menu-btn" class="md:hidden text-3xl text-yellow-400">
+          <i class="fas fa-bars"></i>
+        </button>
+      </div>
     </div>
 
-    <nav class="site-nav">
-      <ul>
-        <li><a href="index.html">Home</a></li>
-        <li><a href="cars.html">Meet the Cabbies</a></li>
-        <li><a href="investors.html">Contributors</a></li>
-        <li><a href="faq.html">FAQ</a></li>
-        <!--<li><a href="apply.html">Apply</a></li>-->
-      </ul>
-    </nav>
-    <button type="button" class="btn-menu"><span>Menu</span></button>
+    <!-- Mobile Menu -->
+    <div id="mobile-menu" class="hidden md:hidden bg-black/95 border-t border-yellow-500/20 py-6">
+      <div class="flex flex-col items-center gap-6 text-lg">
+        <a href="index.html" class="hover:text-yellow-400">Home</a>
+        <a href="cars.html" class="text-yellow-400">Vehicles</a>
+        <a href="investors.html" class="hover:text-yellow-400">Contributors</a>
+        <a href="faq.html" class="hover:text-yellow-400">FAQ</a>
+        <a href="signin.html" class="text-yellow-400">Sign In</a>
+      </div>
+    </div>
   </header>
 
-  <div class="row column medium-10 large-8 xxlarge-6">
-    <p class="content">
-      Our company has a dedicated team that recruits, trains, and supports professional drivers.We take pride in providing safe and reliable rides for our customers.
-    </p>
+  <!-- Hero -->
+  <section class="pt-28 pb-16 bg-gradient-to-b from-zinc-900 to-zinc-950">
+    <div class="max-w-7xl mx-auto px-6 text-center">
+      <h1 class="text-5xl md:text-6xl font-bold title-font mb-4 text-white">Our Vehicles</h1>
+      <p class="text-xl text-gray-400 max-w-2xl mx-auto">
+        Choose from our wide range of vehicles for a comfortable and safe journey.
+      </p>
+    </div>
+  </section>
 
-    <p class="content">
-      Every driver goes through a strict verification process including background checks, driving record verification, and safety training. Only qualified drivers are allowed to join our platform.
-    </p>
+  <!-- Vehicles Section -->
+  <section class="py-16 bg-zinc-950 border-t border-yellow-500/10">
+  <div class="max-w-7xl mx-auto px-6">
+    <div class="grid md:grid-cols-4 gap-8 text-center">
 
-    <p class="content">We believe that happy drivers lead to happy customers. That is why we provide support,fair incentives, and tools that help drivers deliver the best service possible.</p>
+      <div class="bg-zinc-900 rounded-2xl p-6 border border-yellow-500/10">
+        <div class="text-3xl text-yellow-400 mb-2"><i class="fas fa-clock"></i></div>
+        <h4 class="font-semibold text-lg">Fast Pickup</h4>
+        <p class="text-gray-400 text-sm">Drivers arrive within 5–10 minutes.</p>
+      </div>
+
+      <div class="bg-zinc-900 rounded-2xl p-6 border border-yellow-500/10">
+        <div class="text-3xl text-yellow-400 mb-2"><i class="fas fa-user-shield"></i></div>
+        <h4 class="font-semibold text-lg">Verified Drivers</h4>
+        <p class="text-gray-400 text-sm">Background checked & trained.</p>
+      </div>
+
+      <div class="bg-zinc-900 rounded-2xl p-6 border border-yellow-500/10">
+        <div class="text-3xl text-yellow-400 mb-2"><i class="fas fa-rupee-sign"></i></div>
+        <h4 class="font-semibold text-lg">Transparent Pricing</h4>
+        <p class="text-gray-400 text-sm">No hidden charges or surge traps.</p>
+      </div>
+
+      <div class="bg-zinc-900 rounded-2xl p-6 border border-yellow-500/10">
+        <div class="text-3xl text-yellow-400 mb-2"><i class="fas fa-headset"></i></div>
+        <h4 class="font-semibold text-lg">24/7 Support</h4>
+        <p class="text-gray-400 text-sm">Help available anytime.</p>
+      </div>
+
+    </div>
   </div>
+</section>
 
-  <section class="unicorns-list">
-    <div class="row">
-      <div class="unicorn jimmy">
-        <div class="columns medium-5 large-6 xlarge-5 xlarge-offset-1">
-          <img src="images/arun.png" alt="Jimmy Three Legs">
-        </div>
-
-        <div class="columns medium-7 large-6 xlarge-5 xxlarge-4">
-          <h2 class="title">ARUN KUMAR</h2>
-          <div class="subtitle">Professional Driver</div>
-          <p class="content">
-            Arun joined our platform in 2023 and has completed hundreds of successful rides.He enjoys meeting new passengers and ensuring they reach their destination safely.
+  <!-- Trusted Drivers (Your Original Content) -->
+   
+  <section class="py-20 bg-zinc-900">
+    <div class="max-w-7xl mx-auto px-6">
+      <h2 class="text-4xl font-bold title-font text-center mb-16 text-white">Our Trusted Drivers</h2>
+      
+      <div class="grid md:grid-cols-3 gap-8">
+        <!-- Arun Kumar -->
+        <div class="bg-zinc-800/70 border border-yellow-500/20 rounded-3xl p-8 text-center car-card">
+          <div class="w-28 h-28 mx-auto bg-zinc-700 rounded-2xl mb-6"></div>
+          <h3 class="text-2xl font-semibold mb-1">ARUN KUMAR</h3>
+          <p class="text-yellow-400 mb-4">Professional Driver</p>
+          <p class="text-gray-400 text-sm leading-relaxed">
+            Arun joined our platform in 2023 and has completed hundreds of successful rides. 
+            He enjoys meeting new passengers and ensuring they reach their destination safely.
           </p>
+          <div class="text-yellow-400 mb-3">
+            ★★★★☆ <span class="text-gray-400 text-sm">4.7 rating</span>
+          </div>
+          <a href="index.html" 
+   class="mt-4 inline-block w-full text-center py-3 bg-yellow-400 hover:bg-yellow-500 text-black font-semibold rounded-xl transition">
+  Book Ride
+</a>
         </div>
-      </div>
-    </div>
 
-    <div class="row">
-      <div class="unicorn henry">
-        <div class="columns medium-5 medium-push-7 large-6 large-push-6 xlarge-5 xlarge-offset-1 xlarge-push-5">
-          <img src="images/ravi.png" alt="Hot Shoe Henry">
-        </div>
-
-        <div class="columns medium-7 medium-pull-5 large-6 large-pull-6 xlarge-5 xlarge-pull-5 xxlarge-4 xxlarge-offset-1">
-          <h2 class="title">RAVI SHARMA</h2>
-          <div class="subtitle">Experienced Driver</div>
-          <p class="content">
-            Ravi has many years of driving experience and is known for his safe and smooth driving style. Passengers appreciate his friendly attitude and punctual service.
+        <!-- Ravi Sharma -->
+        <div class="bg-zinc-800/70 border border-yellow-500/20 rounded-3xl p-8 text-center car-card">
+          <div class="w-28 h-28 mx-auto bg-zinc-700 rounded-2xl mb-6"></div>
+          <h3 class="text-2xl font-semibold mb-1">RAVI SHARMA</h3>
+          <p class="text-yellow-400 mb-4">Experienced Driver</p>
+          <p class="text-gray-400 text-sm leading-relaxed">
+            Ravi has many years of driving experience and is known for his safe and smooth driving style. 
+            Passengers appreciate his friendly attitude and punctual service.
           </p>
+          <div class="text-yellow-400 mb-3">
+            ★★★★☆ <span class="text-gray-400 text-sm">4.7 rating</span>
+          </div>
+          <a href="index.html" 
+   class="mt-4 inline-block w-full text-center py-3 bg-yellow-400 hover:bg-yellow-500 text-black font-semibold rounded-xl transition">
+  Book Ride
+</a>
         </div>
-      </div>
-    </div>
 
-    <div class="row">
-      <div class="unicorn veronica">
-        <div class="columns medium-5 large-6 xlarge-5 xlarge-offset-1">
-          <img src="images/priya.png" alt="Veronica">
-        </div>
-
-        <div class="columns medium-7 large-6 xlarge-5 xxlarge-4">
-          <h2 class="title">PRIYA NAIR</h2>
-          <div class="subtitle">Trusted Driver</div>
-          <p class="content">
-            Priya recently joined our platform and quickly became one of the most highly rated drivers. She is known for her professionalism and excellent customer service.
+        <!-- Priya Nair -->
+        <div class="bg-zinc-800/70 border border-yellow-500/20 rounded-3xl p-8 text-center car-card">
+          <div class="w-28 h-28 mx-auto bg-zinc-700 rounded-2xl mb-6"></div>
+          <h3 class="text-2xl font-semibold mb-1">PRIYA NAIR</h3>
+          <p class="text-yellow-400 mb-4">Trusted Driver</p>
+          <p class="text-gray-400 text-sm leading-relaxed">
+            Priya recently joined our platform and quickly became one of the most highly rated drivers. 
+            She is known for her professionalism and excellent customer service.
           </p>
+          <div class="text-yellow-400 mb-3">
+            ★★★★★ <span class="text-gray-400 text-sm">5.0 rating</span>
+          </div>
+          <a href="index.html" 
+   class="mt-4 inline-block w-full text-center py-3 bg-yellow-400 hover:bg-yellow-500 text-black font-semibold rounded-xl transition">
+  Book Ride
+</a>
         </div>
       </div>
     </div>
   </section>
 
-  <footer class="site-footer">
-    <div class="row column">
-      <nav class="footer-nav">
-        <ul>
-          <li><a href="index.html">Home</a></li>
-          <li><a href="cars.html">Meet the Cabbies</a></li>
-          <li><a href="investors.html">Contributors</a></li>
-          <li><a href="faq.html">FAQ</a></li>
-          <!--<li><a href="apply.html">Apply</a></li>-->
-        </ul>
-      </nav>
-    </div>
+  <!--Real User Feedback Section-->
+  <section class="py-20 bg-zinc-950">
+  <div class="max-w-5xl mx-auto px-6 text-center">
+    <h2 class="text-3xl font-bold text-white mb-12">What Our Riders Say</h2>
 
-    <div class="row column">
-      <div class="footer-legal">
-        &copy;REC ShareX Inc<br>
-        All Rights Reserved
+    <div class="grid md:grid-cols-2 gap-8">
+
+      <div class="bg-zinc-900 p-6 rounded-2xl border border-yellow-500/10">
+        <p class="text-gray-300 italic">
+          "Got a ride within 5 minutes. Driver was polite and the trip was smooth."
+        </p>
+        <p class="mt-4 text-yellow-400 text-sm">— College Student</p>
       </div>
+
+      <div class="bg-zinc-900 p-6 rounded-2xl border border-yellow-500/10">
+        <p class="text-gray-300 italic">
+          "Affordable pricing and no last-minute surprises. Really reliable."
+        </p>
+        <p class="mt-4 text-yellow-400 text-sm">— Daily Commuter</p>
+      </div>
+
+    </div>
+  </div>
+</section>
+<div class="divider my-10"></div>
+  <!-- Footer -->
+  <footer class="bg-black text-yellow-400 py-16">
+    <div class="max-w-7xl mx-auto px-6 text-center">
+      <p class="mb-4">© 2026 ShareX • All Rights Reserved</p>
+      <nav class="flex justify-center gap-8 text-sm">
+        <a href="index.html" class="hover:text-white transition">Home</a>
+        <a href="cars.html" class="hover:text-white transition">Vehicles</a>
+        <a href="faq.html" class="hover:text-white transition">FAQ</a>
+      </nav>
     </div>
   </footer>
 
   <script src="js/vendor.js"></script>
-
   <script src="js/main.js"></script>
+
+  <!-- Mobile Menu Script -->
+  <script>
+    const menuBtn = document.getElementById('menu-btn');
+    const mobileMenu = document.getElementById('mobile-menu');
+    
+    menuBtn.addEventListener('click', () => {
+      mobileMenu.classList.toggle('hidden');
+      const icon = menuBtn.querySelector('i');
+      icon.classList.toggle('fa-bars');
+      icon.classList.toggle('fa-times');
+    });
+  </script>
 </body>
 </html>

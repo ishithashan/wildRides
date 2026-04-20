@@ -1,60 +1,132 @@
-<!DOCTYPE html>
-<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
-<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
-<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
-    <head>
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-        <title>Verify Email - ShareX</title>
-        <meta name="description" content="">
-        <meta name="viewport" content="width=device-width">
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Verify Email - ShareX</title>
+  
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"/>
+  
+  <link rel="icon" href="images/wr-home-SX.png">
+  
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Playfair+Display:wght@500;600;700&display=swap');
+    
+    body { font-family: 'Inter', system-ui, sans-serif; }
+    .title-font { font-family: 'Playfair Display', serif; }
+  </style>
+</head>
+<body class="bg-zinc-950 text-white min-h-screen">
 
-        <!-- Place favicon1.ico and apple-touch-icon.png in the root directory -->
-        <link rel="icon" type="image/png" href="images/wr-home-SX.jpg">
+  <!-- Navbar -->
+  <header class="fixed top-0 w-full bg-black/95 backdrop-blur-md z-50 border-b border-yellow-500/20">
+    <div class="max-w-7xl mx-auto px-6 py-5 flex justify-between items-center">
+      <div class="flex items-center gap-3">
+        <span class="text-4xl">🌿</span>
+        <h1 class="text-3xl font-bold title-font tracking-tight text-yellow-400">ShareX</h1>
+      </div>
 
-        <link rel="stylesheet" href="css/font.css">
-        <link rel="stylesheet" href="css/normalize.css">
-        <link rel="stylesheet" href="css/index.css">
-        <link rel="stylesheet" href="/css/message.css">
-    </head>
-    <body>
-        <!--[if lt IE 7]>
-            <p class="chromeframe">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">activate Google Chrome Frame</a> to improve your experience.</p>
-        <![endif]-->
+      <nav id="desktop-menu" class="hidden md:flex items-center gap-8 text-sm font-medium">
+        <a href="index.html" class="hover:text-yellow-400 transition">Home</a>
+        <a href="cars.html" class="hover:text-yellow-400 transition">Vehicles</a>
+        <a href="investors.html" class="hover:text-yellow-400 transition">Contributors</a>
+        <a href="faq.html" class="hover:text-yellow-400 transition">FAQ</a>
+      </nav>
 
-        <!--<div id="noCognitoMessage" class="configMessage" style="display: none;">
-            <div class="backdrop"></div>
-            <div class="panel panel-default">
-                <div class="panel-heading">
-                    <h3 class="panel-title">No Cognito User Pool Configured</h3>
-                </div>
-                <div class="panel-body">
-                    <p>There is no user pool configured in <a href="/js/config.js">/js/config.js</a>. You'll configure this in Module 2 of the workshop.</p>
-                </div>
-            </div>
-        </div>-->
+      <div class="flex items-center gap-4">
+        <a href="signin.html" class="hidden md:block px-6 py-2.5 text-sm font-medium border border-yellow-400 text-yellow-400 rounded-full hover:bg-yellow-400 hover:text-black transition">
+          Sign In
+        </a>
+        <a href="register.html" class="px-6 py-2.5 text-sm font-medium border border-yellow-400 text-yellow-400 rounded-full hover:bg-yellow-400 hover:text-black transition">
+          Register
+        </a>
 
-        <header>
-          <img src="images/wr-logo-black1.png">
-        </header>
+        <button id="menu-btn" class="md:hidden text-3xl text-yellow-400">
+          <i class="fas fa-bars"></i>
+        </button>
+      </div>
+    </div>
 
+    <!-- Mobile Menu -->
+    <div id="mobile-menu" class="hidden md:hidden bg-black/95 border-t border-yellow-500/20 py-6">
+      <div class="flex flex-col items-center gap-6 text-lg">
+        <a href="index.html" class="hover:text-yellow-400">Home</a>
+        <a href="cars.html" class="hover:text-yellow-400">Vehicles</a>
+        <a href="investors.html" class="hover:text-yellow-400">Contributors</a>
+        <a href="faq.html" class="hover:text-yellow-400">FAQ</a>
+      </div>
+    </div>
+  </header>
 
-        <section class="form-wrap">
-            <h1>Verify Email</h1>
-            <form id="verifyForm">
-              <input type="email" id="emailInputVerify" placeholder="Email" required>
-              <input type="text" id="codeInputVerify" placeholder="Verification Code" pattern=".*" required>
+  <!-- Verify Email Section -->
+  <section class="pt-28 pb-20 min-h-screen flex items-center">
+    <div class="max-w-lg mx-auto px-6 w-full">
+      <div class="bg-zinc-900 border border-yellow-500/20 rounded-3xl p-10 shadow-2xl">
+        
+        <div class="text-center mb-10">
+          <span class="text-5xl">📧</span>
+          <h1 class="text-4xl font-bold title-font mt-4 text-white">Verify Your Email</h1>
+          <p class="text-gray-400 mt-3">
+            We've sent a verification code to your email.<br>
+            Please enter it below to complete registration.
+          </p>
+        </div>
 
-              <input type="submit" value="Verify">
-            </form>
-        </section>
+        <!-- === YOUR ORIGINAL FORM (IDs preserved) === -->
+        <form id="verifyForm" class="space-y-6">
+          <div>
+            <label class="block text-sm text-gray-400 mb-2">Email Address</label>
+            <input type="email" id="emailInputVerify" placeholder="Enter your email" 
+                   class="w-full bg-zinc-800 border border-yellow-500/30 rounded-2xl px-5 py-4 focus:outline-none focus:border-yellow-400 transition text-white"
+                   required>
+          </div>
 
-        <script src="js/vendor/jquery-3.1.0.js"></script>
-        <script src="js/vendor/bootstrap.min.js"></script>
-        <script src="js/vendor/aws-cognito-sdk.min.js"></script>
-        <script src="js/vendor/amazon-cognito-identity.min.js"></script>
-        <script src="js/config.js"></script>
-        <script src="js/cognito-auth.js"></script>
-    </body>
+          <div>
+            <label class="block text-sm text-gray-400 mb-2">Verification Code</label>
+            <input type="text" id="codeInputVerify" placeholder="Enter 6-digit code" 
+                   class="w-full bg-zinc-800 border border-yellow-500/30 rounded-2xl px-5 py-4 focus:outline-none focus:border-yellow-400 transition text-white text-center text-2xl tracking-widest"
+                   maxlength="6" required>
+          </div>
+
+          <button type="submit" 
+                  class="w-full py-4 bg-yellow-400 hover:bg-yellow-500 text-black font-semibold text-lg rounded-2xl transition mt-6">
+            Verify
+          </button>
+        </form>
+
+        
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="bg-black text-yellow-400 py-16">
+    <div class="max-w-7xl mx-auto px-6 text-center">
+      <p class="mb-4">© 2026 ShareX • All Rights Reserved</p>
+    </div>
+  </footer>
+
+  <!-- ==================== YOUR ORIGINAL SCRIPTS ==================== -->
+  <script src="js/vendor/jquery-3.1.0.js"></script>
+  <script src="js/vendor/bootstrap.min.js"></script>
+  <script src="js/vendor/aws-cognito-sdk.min.js"></script>
+  <script src="js/vendor/amazon-cognito-identity.min.js"></script>
+  <script src="js/config.js"></script>
+  <script src="js/cognito-auth.js"></script>
+
+  <!-- Mobile Menu Script -->
+  <script>
+    const menuBtn = document.getElementById('menu-btn');
+    const mobileMenu = document.getElementById('mobile-menu');
+    
+    menuBtn.addEventListener('click', () => {
+      mobileMenu.classList.toggle('hidden');
+      const icon = menuBtn.querySelector('i');
+      icon.classList.toggle('fa-bars');
+      icon.classList.toggle('fa-times');
+    });
+  </script>
+</body>
 </html>
